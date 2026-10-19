@@ -1,0 +1,474 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>Thư hoa 20/10</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500&family=Dancing+Script:wght@600;700&display=swap" rel="stylesheet">
+<style>
+/* Bố cục: một cảnh dọc. Phong thư nổi ở giữa; chạm vào thì nắp mở, thư bung ra thành tấm thiệp,
+   hoa mọc từ mép trên, mép dưới và quanh viền thiệp, rồi lời chúc hiện dần từng dòng. */
+:root{
+  --bg1:#FFE4EF; --bg2:#E9DCFA; --glow:#FFFFFFC0;
+  --ink:#4A1D3F; --ink-soft:#7E4C70;
+  --accent:#E0457F; --accent-text:#BE2C66;
+  --paper:#FFFBFC; --paper-2:#FFEEF4; --paper-ink:#4A1D3F; --paper-soft:#86566F; --line:#F6CADB;
+  --env-body:#FBB1CA; --env-left:#F79DBD; --env-right:#F68FB4; --env-flap:#FFC4D8; --env-in:#E27A9E; --env-in2:#EC93B1;
+  --seal:#D93A77; --seal-ink:#FFFFFF;
+  --f-rose-a:#F0568F; --f-rose-b:#FFB3CE;
+  --f-peach-a:#FF9A7B; --f-peach-b:#FFD6C6;
+  --f-lav-a:#A678EA; --f-lav-b:#DECCFF;
+  --f-sun-a:#FFC83D; --f-sun-b:#FFF0B0;
+  --f-white-a:#FFF6FA; --f-white-b:#FFC4DA;
+  --center:#F5A524; --center-d:#C96A0F;
+  --stem:#4F9F6E; --leaf:#6DBE86;
+  --edge:#A8266124; --fshadow:#B2306B33; --shadow:#8E2C6433;
+  --pill:#FFFFFFB3; --pill-line:#E0457F55;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg1:#2B1031; --bg2:#141233; --glow:#9B3E8C45;
+    --ink:#FDE8F1; --ink-soft:#E0B9D0; --accent:#FF7DAA;
+    --env-body:#E58AB0; --env-left:#DE76A2; --env-right:#DC6C9A; --env-flap:#F2A2C3; --env-in:#B84F80; --env-in2:#C9638F;
+    --stem:#5FB683; --leaf:#7ED39C;
+    --edge:#00000038; --fshadow:#FF7DAA40; --shadow:#00000066;
+    --pill:#FFFFFF1F; --pill-line:#FF7DAA66;
+    color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --bg1:#2B1031; --bg2:#141233; --glow:#9B3E8C45;
+  --ink:#FDE8F1; --ink-soft:#E0B9D0; --accent:#FF7DAA;
+  --env-body:#E58AB0; --env-left:#DE76A2; --env-right:#DC6C9A; --env-flap:#F2A2C3; --env-in:#B84F80; --env-in2:#C9638F;
+  --stem:#5FB683; --leaf:#7ED39C;
+  --edge:#00000038; --fshadow:#FF7DAA40; --shadow:#00000066;
+  --pill:#FFFFFF1F; --pill-line:#FF7DAA66;
+  color-scheme:dark;
+}
+
+html{height:100%;box-sizing:border-box}
+body{
+  height:100%;position:relative;overflow:hidden;
+  padding-left:max(16px, env(safe-area-inset-left, 0px));
+  padding-right:max(16px, env(safe-area-inset-right, 0px));
+  background-color:var(--bg1);
+  background-image:radial-gradient(120% 55% at 50% 0%, var(--glow), transparent 62%), linear-gradient(165deg, var(--bg1) 0%, var(--bg2) 100%);
+  color:var(--ink);
+  font:15px/1.6 "Be Vietnam Pro", system-ui, -apple-system, "Segoe UI", sans-serif;
+  -webkit-font-smoothing:antialiased;
+}
+button{font:inherit;color:inherit}
+:focus-visible{outline:3px solid var(--accent);outline-offset:4px}
+
+/* ---------- Cảnh ---------- */
+.scene{
+  position:relative;z-index:2;height:100%;
+  --lw:min(21rem, calc(100vw - 3rem));
+  --ew:min(17.5rem, calc(100vw - 6rem));
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  gap:clamp(1.8rem, 5.5vh, 2.8rem);
+}
+.fade{transition:opacity .5s ease, transform .5s ease}
+body.is-open .fade{opacity:0;transform:translateY(-10px);pointer-events:none}
+
+.intro{display:grid;gap:.5rem;text-align:center;justify-items:center}
+.eyebrow{margin:0;font-size:11.5px;font-weight:500;letter-spacing:.2em;text-transform:uppercase;color:var(--ink-soft)}
+.intro h1{
+  margin:0;font:700 clamp(2.7rem, 12vw, 3.5rem)/1.05 "Dancing Script", "Brush Script MT", cursive;
+  color:var(--ink);text-wrap:balance;
+}
+.hint{margin:0;font-size:13.5px;letter-spacing:.03em;color:var(--ink-soft);animation:breathe 2.6s ease-in-out infinite}
+@keyframes breathe{0%,100%{opacity:.55}50%{opacity:1}}
+
+/* ---------- Phong thư ---------- */
+.env{
+  position:relative;display:block;width:var(--ew);aspect-ratio:100/68;
+  padding:0;border:0;background:none;cursor:pointer;
+  -webkit-tap-highlight-color:transparent;
+  filter:drop-shadow(0 16px 14px var(--shadow));
+  animation:float 3.6s ease-in-out infinite;
+}
+.env:disabled{cursor:default}
+.env>span{position:absolute;display:block}
+@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
+.e-back{inset:0;background:var(--env-in);border-radius:10px;z-index:0}
+.flap{
+  left:0;right:0;top:0;height:56%;z-index:5;
+  clip-path:polygon(0 0,100% 0,50% 100%);
+  background:var(--env-flap);transform-origin:50% 0;
+  transform:perspective(700px) rotateX(0deg);
+  transition:transform .8s ease-in-out, background-color 0s linear 0s, z-index 0s linear 0s;
+}
+body.is-open .flap{
+  transform:perspective(700px) rotateX(180deg);
+  background:var(--env-in2);z-index:1;
+  transition:transform .8s ease-in-out, background-color 0s linear .4s, z-index 0s linear .4s;
+}
+.sheet{
+  left:9%;right:9%;top:8%;bottom:14%;z-index:2;border-radius:6px;
+  background:
+    repeating-linear-gradient(to bottom, transparent 0 11px, var(--line) 11px 12px) 0 22px/100% 100% no-repeat,
+    var(--paper);
+  transition:transform .9s cubic-bezier(.3,.8,.3,1), opacity .4s ease;
+}
+body.is-rise .sheet{transform:translateY(-58%)}
+body.is-bloom .sheet{opacity:0}
+.e-front{
+  inset:0;z-index:3;overflow:hidden;border-radius:10px;
+  background:var(--env-body);
+  clip-path:polygon(0 0,50% 56%,100% 0,100% 100%,0 100%);
+}
+.e-front::before,.e-front::after{content:"";position:absolute;inset:0}
+.e-front::before{background:var(--env-left);clip-path:polygon(0 0,50% 56%,0 100%)}
+.e-front::after{background:var(--env-right);clip-path:polygon(100% 0,50% 56%,100% 100%)}
+.seal{
+  left:50%;top:56%;width:15%;aspect-ratio:1;z-index:6;translate:-50% -50%;
+  display:grid!important;place-items:center;border-radius:50%;
+  background:var(--seal);box-shadow:0 4px 10px var(--shadow);
+  animation:beat 1.7s ease-in-out infinite;
+}
+.seal svg{width:56%;height:56%;fill:var(--seal-ink)}
+@keyframes beat{0%,100%{scale:1}50%{scale:1.14}}
+body.is-open .seal{animation:sealout .45s ease-in forwards}
+@keyframes sealout{to{scale:0;opacity:0}}
+body.is-bloom .env{
+  animation:none;opacity:0;pointer-events:none;
+  transform:translateY(46vh) scale(.7) rotate(-6deg);
+  transition:transform 1s cubic-bezier(.5,0,.8,.4), opacity .8s ease;
+}
+
+/* ---------- Bức thư ---------- */
+.letter{
+  position:absolute;top:50%;left:50%;translate:-50% -50%;z-index:3;
+  width:var(--lw);max-height:calc(100% - 4.5rem);
+  overflow-y:auto;overscroll-behavior:contain;
+  display:grid;gap:1rem;align-content:start;
+  padding:3.1rem 1.9rem 2.4rem;border-radius:14px;
+  background:linear-gradient(180deg, var(--paper) 0%, var(--paper-2) 100%);
+  color:var(--paper-ink);
+  box-shadow:0 26px 50px -18px var(--shadow), 0 4px 14px -6px var(--shadow);
+  outline:1px solid var(--line);outline-offset:-9px;
+  opacity:0;visibility:hidden;pointer-events:none;
+  transform:translateY(14%) scale(.42);
+}
+.letter:focus{outline:1px solid var(--line);outline-offset:-9px}
+body.is-bloom .letter{
+  opacity:1;visibility:visible;pointer-events:auto;transform:none;
+  transition:transform 1.1s cubic-bezier(.2,.95,.3,1.08), opacity .6s ease;
+}
+.letter>*{margin:0;min-width:0}
+.letter p{text-wrap:pretty}
+.date{font-size:10.5px;font-weight:500;letter-spacing:.18em;text-transform:uppercase;color:var(--paper-soft)}
+.greet{font:700 2.1rem/1.15 "Dancing Script", "Brush Script MT", cursive;color:var(--accent-text);text-wrap:balance}
+.wish{font:700 1.85rem/1.2 "Dancing Script", "Brush Script MT", cursive;color:var(--accent-text);text-align:center;margin-top:.3rem!important}
+.sign{font:600 1.3rem/1.3 "Dancing Script", "Brush Script MT", cursive;color:var(--paper-soft);text-align:right}
+.rv{opacity:0;transform:translateY(10px);filter:blur(3px)}
+body.is-write .rv{
+  opacity:1;transform:none;filter:none;
+  transition:opacity .9s ease, transform .9s ease, filter .9s ease;
+  transition-delay:calc(var(--i) * .55s);
+}
+
+/* ---------- Vườn hoa ---------- */
+.garden{position:fixed;inset:0;overflow:hidden;pointer-events:none}
+#gBack{z-index:1}
+#gFront{z-index:4}
+.stem{position:absolute}
+.stem.bottom{bottom:0}
+.stem.top{top:0;transform:scaleY(-1)}
+.st{display:block;overflow:visible}
+.stalk{fill:none;stroke:var(--stem);stroke-width:3.2;stroke-linecap:round;stroke-dasharray:1 1;stroke-dashoffset:1}
+body.is-bloom .stalk{animation:grow 1.3s cubic-bezier(.3,.7,.25,1) var(--dl) forwards}
+@keyframes grow{to{stroke-dashoffset:0}}
+.leaf{fill:var(--leaf);transform:scale(0);transform-box:fill-box;transform-origin:0 50%}
+body.is-bloom .leaf{animation:pop .6s cubic-bezier(.2,1.2,.4,1) calc(var(--dl) + var(--ld)) forwards}
+@keyframes pop{to{transform:scale(1)}}
+.bl{position:absolute;opacity:0;transform:scale(0) rotate(-120deg);filter:drop-shadow(0 4px 5px var(--fshadow))}
+body.is-bloom .bl{animation:bloom 1.1s cubic-bezier(.22,1.2,.36,1) var(--dl) forwards}
+@keyframes bloom{
+  from{opacity:0;transform:scale(0) rotate(-120deg)}
+  55%{opacity:1}
+  to{opacity:1;transform:scale(1) rotate(0deg)}
+}
+.fl{display:block;width:100%;height:100%;overflow:visible;animation:sway 5.5s ease-in-out calc(var(--dl) + 1s) infinite alternate}
+@keyframes sway{from{transform:rotate(-5deg)}to{transform:rotate(5deg)}}
+.p{stroke:var(--edge);stroke-width:.7}
+.v-rose .p{fill:url(#g-rose)}
+.v-peach .p{fill:url(#g-peach)}
+.v-lav .p{fill:url(#g-lav)}
+.v-sun .p{fill:url(#g-sun)}
+.v-white .p{fill:url(#g-white)}
+.c{fill:var(--center)}
+.d{fill:var(--center-d)}
+body.instant .bl{animation:none!important;opacity:1!important;transform:none!important}
+body.instant .stalk{animation:none!important;stroke-dashoffset:0!important}
+body.instant .leaf{animation:none!important;transform:scale(1)!important}
+
+/* ---------- Cánh hoa rơi ---------- */
+.petals{position:fixed;inset:0;overflow:hidden;pointer-events:none;z-index:5}
+.petal{
+  position:absolute;top:0;left:var(--x);width:var(--s);height:calc(var(--s) * 1.3);
+  border-radius:80% 0 80% 0;opacity:0;
+  background:linear-gradient(135deg, var(--f-rose-b), var(--f-rose-a));
+}
+.petal.pw{background:linear-gradient(135deg, var(--f-white-a), var(--f-white-b))}
+.petal.pl{background:linear-gradient(135deg, var(--f-lav-b), var(--f-lav-a))}
+body.is-bloom .petal{animation:fall var(--t) linear var(--d) infinite}
+@keyframes fall{
+  0%{transform:translate3d(0,-8vh,0) rotate(0deg);opacity:0}
+  10%{opacity:.9}
+  90%{opacity:.9}
+  100%{transform:translate3d(var(--sw),108vh,0) rotate(var(--rot));opacity:0}
+}
+
+/* ---------- Chấm lấp lánh nền ---------- */
+.dots{position:fixed;inset:0;pointer-events:none;z-index:0}
+.dots i{position:absolute;width:5px;height:5px;border-radius:50%;background:var(--accent);opacity:0;animation:twinkle 3.4s ease-in-out var(--d) infinite}
+@keyframes twinkle{0%,100%{opacity:0;scale:.6}50%{opacity:.55;scale:1.2}}
+
+/* ---------- Nút xem lại ---------- */
+.replay{
+  position:fixed;left:50%;bottom:calc(env(safe-area-inset-bottom, 0px) + 14px);translate:-50% 0;z-index:6;
+  padding:.55rem 1.2rem;border-radius:999px;border:1px solid var(--pill-line);
+  background:var(--pill);color:var(--ink);font-size:13px;font-weight:500;letter-spacing:.03em;
+  -webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);cursor:pointer;
+  opacity:0;visibility:hidden;-webkit-tap-highlight-color:transparent;
+}
+body.is-done .replay{opacity:1;visibility:visible;transition:opacity .6s ease}
+
+@media (prefers-reduced-motion: reduce){
+  *,*::before,*::after{
+    animation-duration:.01ms!important;animation-delay:0s!important;animation-iteration-count:1!important;
+    transition-duration:.01ms!important;transition-delay:0s!important;
+  }
+  .petals,.dots{display:none}
+}
+</style>
+
+<div class="dots" aria-hidden="true">
+  <i style="left:12%;top:14%;--d:0s"></i><i style="left:84%;top:10%;--d:.8s"></i>
+  <i style="left:22%;top:78%;--d:1.4s"></i><i style="left:90%;top:64%;--d:2.1s"></i>
+  <i style="left:6%;top:46%;--d:2.6s"></i><i style="left:70%;top:88%;--d:.4s"></i>
+  <i style="left:48%;top:6%;--d:1.8s"></i>
+</div>
+
+<div class="garden" id="gBack" aria-hidden="true"></div>
+
+<main class="scene" id="scene">
+  <header class="intro fade">
+    <p class="eyebrow">20.10 · Ngày Phụ nữ Việt Nam</p>
+    <h1>Có thư gửi bạn</h1>
+  </header>
+
+  <button class="env" id="env" type="button" aria-label="Mở thư 20/10">
+    <span class="e-back"></span>
+    <span class="flap"></span>
+    <span class="sheet"></span>
+    <span class="e-front"></span>
+    <span class="seal"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg></span>
+  </button>
+
+  <p class="hint fade">Chạm vào phong thư để mở</p>
+
+  <section class="letter" id="letter" tabindex="-1" aria-label="Thư chúc mừng 20/10">
+    <p class="date rv" style="--i:0">20 · 10 · Ngày Phụ nữ Việt Nam</p>
+    <h2 class="greet rv" style="--i:1">Gửi người phụ nữ tuyệt vời,</h2>
+    <p class="rv" style="--i:2">Hôm nay là 20/10, ngày dành riêng cho bạn. Mong bạn nhận được thật nhiều yêu thương, nhiều hơn cả những gì bạn vẫn lặng lẽ trao đi.</p>
+    <p class="rv" style="--i:3">Chúc bạn luôn rạng rỡ như hoa mới nở, bình yên giữa những ngày bận rộn, và mỗi sáng thức dậy đều có một lý do để mỉm cười.</p>
+    <p class="rv" style="--i:4">Cảm ơn bạn vì sự dịu dàng, sự mạnh mẽ và những điều nhỏ bé bạn làm khiến cuộc sống quanh mình đẹp hơn.</p>
+    <p class="wish rv" style="--i:5">Chúc mừng ngày 20/10!</p>
+    <p class="sign rv" style="--i:6">Thân gửi bạn, với thật nhiều thương mến</p>
+  </section>
+</main>
+
+<div class="garden" id="gFront" aria-hidden="true"></div>
+<div class="petals" id="petals" aria-hidden="true"></div>
+<button class="replay" id="replay" type="button">Xem lại</button>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+  <defs>
+    <linearGradient id="g-rose" x1="0" y1="1" x2="0" y2="0"><stop offset="0" style="stop-color:var(--f-rose-a)"/><stop offset="1" style="stop-color:var(--f-rose-b)"/></linearGradient>
+    <linearGradient id="g-peach" x1="0" y1="1" x2="0" y2="0"><stop offset="0" style="stop-color:var(--f-peach-a)"/><stop offset="1" style="stop-color:var(--f-peach-b)"/></linearGradient>
+    <linearGradient id="g-lav" x1="0" y1="1" x2="0" y2="0"><stop offset="0" style="stop-color:var(--f-lav-a)"/><stop offset="1" style="stop-color:var(--f-lav-b)"/></linearGradient>
+    <linearGradient id="g-sun" x1="0" y1="1" x2="0" y2="0"><stop offset="0" style="stop-color:var(--f-sun-a)"/><stop offset="1" style="stop-color:var(--f-sun-b)"/></linearGradient>
+    <linearGradient id="g-white" x1="0" y1="1" x2="0" y2="0"><stop offset="0" style="stop-color:var(--f-white-b)"/><stop offset="1" style="stop-color:var(--f-white-a)"/></linearGradient>
+  </defs>
+</svg>
+
+<script>
+(function () {
+  var root = document.body;
+  var scene = document.getElementById('scene');
+  var env = document.getElementById('env');
+  var letter = document.getElementById('letter');
+  var gBack = document.getElementById('gBack');
+  var gFront = document.getElementById('gFront');
+  var petalsEl = document.getElementById('petals');
+  var replay = document.getElementById('replay');
+
+  var seed = 1;
+  function rnd() { seed = (seed * 16807) % 2147483647; return (seed - 1) / 2147483646; }
+  function pick(a) { return a[Math.floor(rnd() * a.length)]; }
+  var VARS = ['rose', 'peach', 'lav', 'sun', 'white', 'rose', 'peach'];
+
+  function ell(a, cy, rx, ry) {
+    return '<ellipse class="p" cx="50" cy="' + cy + '" rx="' + rx + '" ry="' + ry + '" transform="rotate(' + a + ' 50 50)"/>';
+  }
+
+  function flower(type, v) {
+    var s = '', i;
+    if (type === 0) {
+      for (i = 0; i < 5; i++) s += ell(i * 72, 24, 17, 24);
+      for (i = 0; i < 5; i++) s += ell(i * 72 + 36, 35, 10, 15);
+      s += '<circle class="c" cx="50" cy="50" r="9"/><circle class="d" cx="50" cy="50" r="3.6"/>';
+    } else if (type === 1) {
+      for (i = 0; i < 12; i++) s += ell(i * 30, 22, 6.8, 22);
+      s += '<circle class="c" cx="50" cy="50" r="13"/><circle class="d" cx="50" cy="50" r="6.5"/>';
+    } else {
+      for (i = 0; i < 7; i++) s += ell(i * 51.4, 24, 15, 24);
+      for (i = 0; i < 6; i++) s += ell(i * 60 + 15, 31, 12, 18);
+      for (i = 0; i < 5; i++) s += ell(i * 72 + 6, 38, 9, 12);
+      for (i = 0; i < 4; i++) s += ell(i * 90 + 30, 44, 5.5, 7);
+    }
+    return '<svg class="fl v-' + v + '" viewBox="0 0 100 100" aria-hidden="true">' + s + '</svg>';
+  }
+
+  function bloom(o) {
+    return '<div class="bl" style="left:' + (o.x - o.s / 2).toFixed(1) + 'px;top:' + (o.y - o.s / 2).toFixed(1) +
+      'px;width:' + o.s.toFixed(0) + 'px;height:' + o.s.toFixed(0) + 'px;--dl:' + o.d.toFixed(2) + 's">' +
+      flower(o.t, o.v) + '</div>';
+  }
+
+  function bez(p0, p1, p2, p3, t) {
+    var u = 1 - t;
+    return [
+      u * u * u * p0[0] + 3 * u * u * t * p1[0] + 3 * u * t * t * p2[0] + t * t * t * p3[0],
+      u * u * u * p0[1] + 3 * u * u * t * p1[1] + 3 * u * t * t * p2[1] + t * t * t * p3[1]
+    ];
+  }
+
+  function stem(o) {
+    var w = 80, cx = 40, ty = 14;
+    var p0 = [cx, o.h], p1 = [cx - o.dx * 1.3, o.h * 0.68], p2 = [cx + o.dx * 1.7, o.h * 0.34], p3 = [cx + o.dx, ty];
+    var leaves = '';
+    [0.3, 0.52, 0.74].forEach(function (t, i) {
+      var p = bez(p0, p1, p2, p3, t);
+      var side = (i + o.side) % 2 ? 1 : -1;
+      var ang = side > 0 ? -38 : -142;
+      var sc = 0.7 + rnd() * 0.5;
+      leaves += '<g transform="translate(' + p[0].toFixed(1) + ' ' + p[1].toFixed(1) + ') rotate(' + ang + ') scale(' + sc.toFixed(2) + ')">' +
+        '<path class="leaf" style="--ld:' + (t * 1.3).toFixed(2) + 's" d="M0 0C7-7 19-8 28 0C19 8 7 7 0 0Z"/></g>';
+    });
+    return '<div class="stem ' + o.edge + '" style="left:' + (o.x - cx).toFixed(1) + 'px;width:' + w + 'px;height:' + o.h + 'px;--dl:' + o.d.toFixed(2) + 's">' +
+      '<svg class="st" width="' + w + '" height="' + o.h + '" viewBox="0 0 ' + w + ' ' + o.h + '" aria-hidden="true">' +
+      '<path class="stalk" pathLength="1" d="M' + p0.join(' ') + ' C' + p1.join(' ') + ' ' + p2.join(' ') + ' ' + p3.join(' ') + '"/>' + leaves + '</svg>' +
+      '<div class="bl" style="left:' + (p3[0] - o.s / 2).toFixed(1) + 'px;top:' + (p3[1] - o.s / 2).toFixed(1) +
+      'px;width:' + o.s + 'px;height:' + o.s + 'px;--dl:' + (o.d + 0.95).toFixed(2) + 's">' + flower(o.t, o.v) + '</div></div>';
+  }
+
+  function build() {
+    seed = 11;
+    var W = innerWidth, H = innerHeight;
+    var sc = scene.getBoundingClientRect();
+    var lw = letter.offsetWidth, lh = letter.offsetHeight;
+    var lx = sc.left + sc.width / 2 - lw / 2, ly = sc.top + sc.height / 2 - lh / 2;
+    var b = '', f = '', i, e, x, k = 0;
+
+    var nb = Math.max(5, Math.round(W / 56));
+    for (i = 0; i < nb; i++) {
+      x = (i + 0.5 + (rnd() - 0.5) * 0.6) * W / nb;
+      e = Math.min(1, Math.abs(x - W / 2) / (W / 2));
+      b += stem({ x: x, edge: 'bottom', h: Math.round(H * (0.07 + 0.24 * e * e + 0.07 * rnd())),
+        s: Math.round(46 + rnd() * 26), t: Math.floor(rnd() * 3), v: pick(VARS),
+        dx: (rnd() - 0.5) * 46, d: 0.1 + i * 0.08 + rnd() * 0.25, side: i });
+    }
+    var nt = Math.max(4, Math.round(W / 78));
+    for (i = 0; i < nt; i++) {
+      x = (i + 0.5 + (rnd() - 0.5) * 0.6) * W / nt;
+      e = Math.min(1, Math.abs(x - W / 2) / (W / 2));
+      b += stem({ x: x, edge: 'top', h: Math.round(H * (0.05 + 0.2 * e * e + 0.05 * rnd())),
+        s: Math.round(42 + rnd() * 24), t: Math.floor(rnd() * 3), v: pick(VARS),
+        dx: (rnd() - 0.5) * 46, d: 0.2 + i * 0.1 + rnd() * 0.25, side: i + 1 });
+    }
+
+    [0.18, 0.38, 0.62, 0.82].forEach(function (t) {
+      b += bloom({ x: lx + lw * t + (rnd() - 0.5) * 14, y: ly + (rnd() - 0.5) * 8, s: 34 + rnd() * 10, t: Math.floor(rnd() * 3), v: pick(VARS), d: 1.2 + k++ * 0.1 });
+      b += bloom({ x: lx + lw * t + (rnd() - 0.5) * 14, y: ly + lh + (rnd() - 0.5) * 8, s: 34 + rnd() * 10, t: Math.floor(rnd() * 3), v: pick(VARS), d: 1.2 + k++ * 0.1 });
+    });
+    [0.28, 0.5, 0.72].forEach(function (t) {
+      b += bloom({ x: lx + (rnd() - 0.5) * 6, y: ly + lh * t, s: 30 + rnd() * 8, t: Math.floor(rnd() * 3), v: pick(VARS), d: 1.4 + k++ * 0.08 });
+      b += bloom({ x: lx + lw + (rnd() - 0.5) * 6, y: ly + lh * t, s: 30 + rnd() * 8, t: Math.floor(rnd() * 3), v: pick(VARS), d: 1.4 + k++ * 0.08 });
+    });
+
+    [[0, 0, -1, -1], [1, 0, 1, -1], [0, 1, -1, 1], [1, 1, 1, 1]].forEach(function (c, n) {
+      var cx = lx + c[0] * lw, cy = ly + c[1] * lh, sx = c[2], sy = c[3];
+      var dx = c[0] ? -1 : 1, dy = c[1] ? -1 : 1;
+      f += bloom({ x: cx + sx * 6, y: cy + sy * 6, s: 66 + rnd() * 10, t: [2, 0, 1, 2][n], v: pick(VARS), d: 1.6 + n * 0.2 });
+      f += bloom({ x: cx + dx * 40, y: cy + sy * 20, s: 36, t: Math.floor(rnd() * 3), v: pick(VARS), d: 1.9 + n * 0.2 });
+      f += bloom({ x: cx + sx * 18, y: cy + dy * 44, s: 28, t: Math.floor(rnd() * 3), v: pick(VARS), d: 2.1 + n * 0.2 });
+    });
+
+    gBack.innerHTML = b;
+    gFront.innerHTML = f;
+  }
+
+  function petals() {
+    var h = '', i;
+    for (i = 0; i < 14; i++) {
+      h += '<i class="petal ' + pick(['', 'pw', 'pl']) + '" style="--x:' + (rnd() * 100).toFixed(1) + '%;--s:' + (10 + rnd() * 9).toFixed(0) +
+        'px;--t:' + (9 + rnd() * 7).toFixed(1) + 's;--d:' + (2.5 + rnd() * 9).toFixed(1) + 's;--sw:' + ((rnd() - 0.5) * 160).toFixed(0) +
+        'px;--rot:' + (300 + rnd() * 500).toFixed(0) + 'deg"></i>';
+    }
+    petalsEl.innerHTML = h;
+  }
+
+  var timers = [], opened = false, lastW = innerWidth, lastH = innerHeight;
+  function later(fn, ms) { timers.push(setTimeout(fn, ms)); }
+
+  function open() {
+    if (opened) return;
+    opened = true;
+    env.disabled = true;
+    root.classList.add('is-open');
+    later(function () { root.classList.add('is-rise'); }, 750);
+    later(function () {
+      seed = 5;
+      build(); petals();
+      lastW = innerWidth; lastH = innerHeight;
+      root.classList.add('is-bloom');
+      letter.focus({ preventScroll: true });
+    }, 1600);
+    later(function () { root.classList.add('is-write'); }, 4000);
+    later(function () { root.classList.add('is-done'); }, 9200);
+  }
+
+  function reset() {
+    timers.forEach(clearTimeout);
+    timers = [];
+    opened = false;
+    root.classList.remove('is-open', 'is-rise', 'is-bloom', 'is-write', 'is-done', 'instant');
+    gBack.innerHTML = '';
+    gFront.innerHTML = '';
+    petalsEl.innerHTML = '';
+    letter.scrollTop = 0;
+    env.disabled = false;
+    env.focus({ preventScroll: true });
+  }
+
+  env.addEventListener('click', open);
+  replay.addEventListener('click', reset);
+
+  var rt;
+  addEventListener('resize', function () {
+    if (!root.classList.contains('is-bloom')) return;
+    clearTimeout(rt);
+    rt = setTimeout(function () {
+      if (Math.abs(innerWidth - lastW) < 2 && Math.abs(innerHeight - lastH) < 140) return;
+      lastW = innerWidth; lastH = innerHeight;
+      root.classList.add('instant');
+      build();
+    }, 250);
+  });
+})();
+</script>
+
+</body></html>
