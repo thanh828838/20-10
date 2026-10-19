@@ -10,4 +10,4 @@ Cảm ơn tất cả vì sự dịu dàng, sự mạnh mẽ và những tiếng 
 
 ## Chúc mừng ngày 20/10!
 
-> Thân gửi tất cả mọi người, với thật nhiều thương mến
+> Thân gửi tất cả mọi người, với thật nhiều thương mến | Code by Thành & Claude
